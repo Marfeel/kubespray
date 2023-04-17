@@ -157,6 +157,16 @@ spec:
             port: 9098
             host: localhost
           periodSeconds: 10
+{% if typha_memory_requests is defined or typha_cpu_requests is defined %}
+        resources:
+          requests:
+{% if typha_cpu_requests is defined %}
+            cpu: "{{ typha_cpu_requests }}"
+{% endif %}
+{% if typha_memory_requests is defined %}
+            memory: "{{ typha_memory_requests }}"
+{% endif %}
+{% endif %}
 {% if typha_secure %}
       volumes:
         - name: typha-server

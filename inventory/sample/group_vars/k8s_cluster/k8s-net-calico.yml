@@ -84,6 +84,10 @@ calico_pool_blocksize: 26
 # Set max typha connections
 # typha_max_connections_lower_limit: 300
 
+# Optionally reserve resources space for typha daemons.
+# typha_memory_requests: 256Mi
+# typha_cpu_requests: 100m
+
 # Set calico network backend: "bird", "vxlan" or "none"
 # bird enable BGP routing, required for ipip and no encapsulation modes
 # calico_network_backend: vxlan
