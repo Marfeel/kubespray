@@ -1,33 +1,14 @@
 ---
-- name: containerd | Remove containerd repository for RedHat os family
-  file:
-    path: "{{ yum_repo_dir }}/containerd.repo"
-    state: absent
-  when:
-    - ansible_os_family in ['RedHat']
-  tags:
-    - reset_containerd
-
-- name: containerd | Remove containerd repository for Debian os family
-  apt_repository:
-    repo: "{{ item }}"
-    state: absent
-  with_items: "{{ containerd_repo_info.repos }}"
-  when: ansible_pkg_mgr == 'apt'
-  tags:
-    - reset_containerd
-
-- name: containerd | Stop containerd service
+- name: Containerd | Stop containerd service
   service:
     name: containerd
     daemon_reload: true
     enabled: false
-    masked: true
     state: stopped
   tags:
     - reset_containerd
 
-- name: containerd | Remove configuration files
+- name: Containerd | Remove configuration files
   file:
     path: "{{ item }}"
     state: absent

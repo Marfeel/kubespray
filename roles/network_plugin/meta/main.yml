@@ -1,9 +1,10 @@
 ---
 dependencies:
   - role: network_plugin/cni
+    when: kube_network_plugin != 'none'
 
   - role: network_plugin/cilium
-    when: kube_network_plugin == 'cilium' or cilium_deploy_additionally | default(false) | bool
+    when: kube_network_plugin == 'cilium' or cilium_deploy_additionally
     tags:
       - cilium
 
@@ -21,11 +22,6 @@ dependencies:
     when: kube_network_plugin == 'weave'
     tags:
       - weave
-
-  - role: network_plugin/canal
-    when: kube_network_plugin == 'canal'
-    tags:
-      - canal
 
   - role: network_plugin/macvlan
     when: kube_network_plugin == 'macvlan'
